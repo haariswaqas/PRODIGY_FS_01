@@ -21,51 +21,16 @@ from datetime import *
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length = 100)
+    first_name = models.CharField(max_length = 100, null=True, blank=True)
     middle_name = models.CharField(max_length = 100, null=True, blank=True)
-    last_name = models.CharField(max_length = 100)
-    bio = models.TextField()
-    image = models.ImageField(default='default.jpg', upload_to="user_images")
+    last_name = models.CharField(max_length = 100, null=True, blank=True)
+    bio = models.TextField(null=True, blank = True)
+    image = models.ImageField(null=True, blank=True, upload_to="user_images")
     verified = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
-    # def save(self, *args, **kwargs):
-    #     try:
-    #         dob = datetime.strptime(str(self.date_of_birth), '%Y-%m-%d').date()
-    #         today = datetime.now().date()
-    #         age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
-    #         self.age = age
-    #     except (ValueError, TypeError):
-    #         self.age = None
-
-    
-
-    #     if self.middle_name and len(self.middle_name) > 0:
-    #         middle_initial = self.middle_name[0].lower()
-    #     else:
-    #         middle_initial = ''
-
-    #     self.email = f'{self.first_name[0].lower()}{middle_initial}.{self.last_name.lower()}{str(self.student_id)[5:8]}@st.ug.edu.gh'
-
-    #     admission_year = None
-    #     if self.level == '400':
-    #         admission_year = 2021
-           
-    #     elif self.level == '300':
-    #         admission_year = 2022
-            
-    #     elif self.level == '200':
-    #         admission_year = 2023
-            
-    #     elif self.level == '100':
-    #         admission_year = 2024
-            
-    
-    #     self.admission_year = admission_year
-
-    #     super(Profile, self).save(*args, **kwargs)
 
 
 def create_user_profile(sender, instance, created, **kwargs):
