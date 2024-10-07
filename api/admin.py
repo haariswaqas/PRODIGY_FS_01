@@ -1,5 +1,5 @@
 from django.contrib import admin
-from api.models import User, Profile, Note, Lecturer, Course
+from api.models import User, Profile, Note
 
 # Register your models here.
 class UserAdmin(admin.ModelAdmin):
@@ -11,6 +11,4 @@ class ProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(Lecturer)
-admin.site.register(Course)
 admin.site.register(Note)

@@ -1,4 +1,4 @@
-from api.models import User, Profile, Note, Lecturer, Course
+from api.models import User, Profile, Note
 
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -22,7 +22,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['middle_name'] = user.profile.middle_name
         token['last_name'] = user.profile.last_name
         token['bio'] = user.profile.bio
-        token['image'] = str(user.profile.image)
         token['verified'] = user.profile.verified
 
         return token
@@ -63,32 +62,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 class ProfileSerializer(serializers.ModelSerializer):
-
-    
     class Meta:
         model = Profile
         fields = '__all__'
-
-
-class LecturerSerializer(serializers.ModelSerializer):
-
-    
-    class Meta:
-        model = Lecturer
-        fields = ['id', 'user', 'title', 'first_name', 'middle_name', 'last_name', 'bio']
-        read_only_fields = ['id']
-
-
-class CourseSerializer(serializers.ModelSerializer):
-    lecturer_title = serializers.CharField(source='lecturer.title', read_only=True)
-    lecturer_first_name = serializers.CharField(source='lecturer.first_name', read_only=True)
-    lecturer_middle_name = serializers.CharField(source='lecturer.middle_name', read_only=True)
-    lecturer_last_name = serializers.CharField(source='lecturer.last_name', read_only=True)
-
-    class Meta:
-        model = Course
-        fields = '__all__'
-        read_only_fields = ['id']
 
 
 
